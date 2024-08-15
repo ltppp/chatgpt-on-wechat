@@ -49,7 +49,7 @@ class FitnessTracker(Plugin):
                     user_name = context['msg'].actual_user_nickname
 
                     # 调用接口
-                    api_url = 'http://127.0.0.1:8080/api/record/punch'
+                    api_url = 'http://47.109.194.91:8080/api/record/punch'
                     payload = {
                         'group_id': group_id,
                         'group_name': group_name,
