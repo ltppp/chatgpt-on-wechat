@@ -15,6 +15,7 @@ from bridge.reply import Reply, ReplyType
 from common import const
 from config import conf, load_config, global_config
 from plugins import *
+import re
 
 # 定义指令集
 COMMANDS = {
@@ -218,6 +219,12 @@ class Godcmd(Plugin):
 
         content = e_context["context"].content
         logger.debug("[Godcmd] on_handle_context. content: %s" % content)
+        # 添加正则表达式匹配逻辑
+        pattern = r"^#滴.*月卡.*"
+        if re.match(pattern, content):
+            # 匹配到以#滴开头并且包含月卡的消息，跳过处理
+            e_context.action = EventAction.CONTINUE
+            return
         if content.startswith("#"):
             if len(content) == 1:
                 reply = Reply()

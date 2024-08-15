@@ -105,7 +105,7 @@ class XunFeiBot(Bot):
 
     def create_web_socket(self, prompt, session_id, temperature=0.5):
         logger.info(f"[XunFei] start connect, prompt={prompt}")
-        websocket.enableTrace(False)
+        # websocket.enableTrace(False)
         wsUrl = self.create_url()
         ws = websocket.WebSocketApp(wsUrl,
                                     on_message=on_message,
@@ -206,12 +206,19 @@ def on_open(ws):
     logger.info(f"[XunFei] Start websocket, session_id={ws.session_id}")
     thread.start_new_thread(run, (ws, ))
 
+def format_question(question):
+    # 系统消息
+    system_message = {'role': 'system', 'content': '你是智能顾问，你学习了很多运动及康复的知识，你言简意赅，总是总结性发言'}
+    # 添加系统消息到列表开头
+    question_with_system_message = [system_message] + question
+    return question_with_system_message
 
 def run(ws, *args):
+    formatted_question = format_question(ws.question)
     data = json.dumps(
         gen_params(appid=ws.appid,
                    domain=ws.domain,
-                   question=ws.question,
+                   question=formatted_question,
                    temperature=ws.temperature))
     ws.send(data)
 
