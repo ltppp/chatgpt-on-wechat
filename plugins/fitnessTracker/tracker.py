@@ -22,7 +22,8 @@ class FitnessTracker(Plugin):
     def __init__(self):
         super().__init__()
         self.handlers[Event.ON_HANDLE_CONTEXT] = self.on_handle_context
-        self.check_in_success_prompt = "请随机用诙谐或者严肃的方式说这句话：打卡成功🎉 ，这是你今天第{count}次打卡！继续保持."
+        self.check_in_success_prompt = "请你随机使用一种风格说一句话来恭喜用户今日运动打卡完成。"
+        self.check_in_many_success_prompt = "请你随机使用一种风格说一句话来恭喜用户今日运动打卡完成。并告知用户这是他今日的第{count}次打卡"
         self.check_in_failure_prompt = "打卡失败，努力修复中。。。"
         logger.info("[FitnessTracker] Plugin initialized")
 
@@ -72,7 +73,10 @@ class FitnessTracker(Plugin):
                             punch_count = record.get('PunchCount', 1)
 
                             e_context["context"].type = ContextType.TEXT
-                            e_context["context"].content = self.check_in_success_prompt.format(count=punch_count)
+                            if punch_count == 1:
+                                e_context["context"].content = self.check_in_success_prompt
+                            elif punch_count > 1:
+                                e_context["context"].content = self.check_in_many_success_prompt.format(count=punch_count)
                             e_context.action = EventAction.BREAK  # 事件结束，进入默认处理逻辑
                             return
                         else:
