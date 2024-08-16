@@ -54,7 +54,7 @@ available_setting = {
     "expires_in_seconds": 3600,  # 无操作会话的过期时间
     # 人格描述
     "character_desc": "你是ChatGPT, 一个由OpenAI训练的大型语言模型, 你旨在回答并解决人们的任何问题，并且可以使用多种语言与人交流。",
-    "conversation_max_tokens": 1000,  # 支持上下文记忆的最多字符数
+    "conversation_max_tokens": 500,  # 支持上下文记忆的最多字符数
     # chatgpt限流配置
     "rate_limit_chatgpt": 20,  # chatgpt的调用频率限制
     "rate_limit_dalle": 50,  # openai dalle的调用频率限制
@@ -123,7 +123,7 @@ available_setting = {
     "baidu_translate_app_id": "",  # 百度翻译api的appid
     "baidu_translate_app_key": "",  # 百度翻译api的秘钥
     # itchat的配置
-    "hot_reload": False,  # 是否开启热重载
+    "hot_reload": True,  # 是否开启热重载
     # wechaty的配置
     "wechaty_puppet_service_token": "",  # wechaty的token
     # wechatmp的配置

@@ -208,7 +208,7 @@ def on_open(ws):
 
 def format_question(question):
     # 系统消息
-    system_message = {'role': 'system', 'content': '你是智能顾问，你学习了很多运动及康复的知识，你言简意赅，总是总结性发言'}
+    system_message = {'role': 'system', 'content': '你是基于大语言模型的AI智能助手，旨在回答并解决人们的任何问题，并且可以使用多种语言与人交流。'}
     # 添加系统消息到列表开头
     question_with_system_message = [system_message] + question
     return question_with_system_message

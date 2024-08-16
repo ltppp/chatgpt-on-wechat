@@ -97,6 +97,26 @@ class WechatMessage(ChatMessage):
 
         if self.is_group:
             self.is_at = itchat_msg["IsAt"]
-            self.actual_user_id = itchat_msg["ActualUserName"]
+            # 假设 itchat_msg 是 Chatroom 实例的一个对象
+            chatroom = itchat_msg["User"]
+
+            # 获取 MemberList
+            member_list = chatroom.get('MemberList', [])
+
+            # 创建字典
+            members_map = {}
+            for member in member_list:
+                user_name = member.get('UserName', '')
+                if user_name:  # 确保 UserName 不为空
+                    members_map[user_name] = member
+
+            actual_user_id = itchat_msg.get("ActualUserName", '')
+            self.actual_user_id = actual_user_id
+            # 从 members_map 中获取对应的对象
+            actual_user = members_map.get(actual_user_id, None)
+
+            # 输出获取到的用户信息
+            if actual_user:
+                self.actual_user_nick_wx_name = actual_user.get('NickName')
             if self.ctype not in [ContextType.JOIN_GROUP, ContextType.PATPAT, ContextType.EXIT_GROUP]:
                 self.actual_user_nickname = itchat_msg["ActualNickName"]
