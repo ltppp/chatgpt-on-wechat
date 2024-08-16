@@ -1,15 +1,9 @@
 # encoding:utf-8
-import json
-import os
-import langid
-from bridge.bridge import Bridge
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from config import conf
 import plugins
 from plugins import *
 from common.log import logger
-from common.expired_dict import ExpiredDict
 import re
 import requests
 
