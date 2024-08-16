@@ -9,7 +9,6 @@ from config import conf
 import plugins
 from plugins import *
 from common.log import logger
-import replicate
 from common.expired_dict import ExpiredDict
 import re
 import requests
